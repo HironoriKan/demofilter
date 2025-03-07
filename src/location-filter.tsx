@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
+// 求人データの型定義
+interface Job {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  salary: string;
+  workType: string;
+  postedDate: string;
+  tags: string[];
+  description: string;
+  isNew: boolean;
+}
+
 const LocationFilter = () => {
   // ドロップダウンの参照を作成
-  const dropdownRef = React.useRef(null);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
   // 都道府県リスト
   const prefectures = [
     { id: 1, name: '北海道' },
@@ -142,10 +156,11 @@ const LocationFilter = () => {
   };
 
   // 状態の管理
-  const [selectedPrefecture, setSelectedPrefecture] = useState('');
-  const [areas, setAreas] = useState([]);
-  const [selectedAreas, setSelectedAreas] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPrefecture, setSelectedPrefecture] = useState<string>('');
+  const [areas, setAreas] = useState<string[]>([]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
   // 都道府県選択時のハンドラー
   const handlePrefectureChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -162,7 +177,7 @@ const LocationFilter = () => {
   };
 
   // エリア選択時のハンドラー
-  const handleAreaChange = (area) => {
+  const handleAreaChange = (area: string) => {
     setSelectedAreas(prev => {
       if (prev.includes(area)) {
         return prev.filter(a => a !== area);
@@ -173,7 +188,7 @@ const LocationFilter = () => {
   };
 
   // 全てのエリアを選択/解除するハンドラー
-  const handleSelectAllAreas = (select) => {
+  const handleSelectAllAreas = (select: boolean) => {
     if (select) {
       setSelectedAreas([...areas]);
     } else {
@@ -306,7 +321,6 @@ const LocationFilter = () => {
   ];
 
   // 検索結果のフィルタリング
-  const [filteredJobs, setFilteredJobs] = useState([]);
   const [searchExecuted, setSearchExecuted] = useState(false);
 
   // 選択されたエリアのタグ表示
@@ -373,8 +387,8 @@ const LocationFilter = () => {
   
   // 外部クリックでドロップダウンを閉じるためのイベントリスナー
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
