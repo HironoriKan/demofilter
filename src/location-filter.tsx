@@ -14,6 +14,11 @@ interface Job {
   isNew: boolean;
 }
 
+// 都道府県ごとのエリアの型定義
+interface AreasByPrefecture {
+  [prefecture: string]: string[];
+}
+
 const LocationFilter = () => {
   // ドロップダウンの参照を作成
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -69,7 +74,7 @@ const LocationFilter = () => {
   ];
 
   // 都道府県ごとの主要エリア（百貨店のある商業地域を考慮）
-  const areasByPrefecture = {
+  const areasByPrefecture: AreasByPrefecture = {
     // 北海道・東北
     '北海道': ['札幌市', '函館市', '旭川市', 'その他'],
     '青森県': ['青森市', '弘前市', '八戸市', 'その他'],
