@@ -326,7 +326,7 @@ const LocationFilter = () => {
   ];
 
   // 検索結果のフィルタリング
-  const [searchExecuted, setSearchExecuted] = useState(false);
+  const [searchExecuted, setSearchExecuted] = useState<boolean>(false);
 
   // 選択されたエリアのタグ表示
   const renderSelectedAreaTags = () => {
@@ -359,7 +359,7 @@ const LocationFilter = () => {
   };
 
   // 検索実行ハンドラー
-  const handleSearch = () => {
+  const handleSearch = (): void => {
     console.log('選択された都道府県:', selectedPrefecture);
     console.log('選択されたエリア:', selectedAreas);
     
@@ -386,7 +386,7 @@ const LocationFilter = () => {
   };
 
   // ドロップダウンの開閉
-  const toggleDropdown = () => {
+  const toggleDropdown = (): void => {
     setIsOpen(!isOpen);
   };
   
