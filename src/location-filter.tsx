@@ -148,7 +148,7 @@ const LocationFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // 都道府県選択時のハンドラー
-  const handlePrefectureChange = (e) => {
+  const handlePrefectureChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const prefecture = e.target.value;
     setSelectedPrefecture(prefecture);
     
