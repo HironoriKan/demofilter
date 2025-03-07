@@ -19,6 +19,12 @@ interface AreasByPrefecture {
   [prefecture: string]: string[];
 }
 
+// 地域グループの型定義
+interface RegionGroup {
+  name: string;
+  prefectures: string[];
+}
+
 const LocationFilter = () => {
   // ドロップダウンの参照を作成
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -410,7 +416,7 @@ const LocationFilter = () => {
   }, [isOpen]);
 
   // 地域グループ定義
-  const regionGroups = [
+  const regionGroups: RegionGroup[] = [
     { name: '北海道・東北', prefectures: ['北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県'] },
     { name: '関東', prefectures: ['茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県'] },
     { name: '甲信越・北陸', prefectures: ['新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県'] },
@@ -422,7 +428,7 @@ const LocationFilter = () => {
   ];
 
   // 選択した都道府県の地域グループを検索
-  const findRegionGroup = (prefecture) => {
+  const findRegionGroup = (prefecture: string): string | null => {
     for (const group of regionGroups) {
       if (group.prefectures.includes(prefecture)) {
         return group.name;
